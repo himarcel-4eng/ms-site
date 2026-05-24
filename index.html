@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marcel Sarmiento</title>
+  <style>
+    @font-face {
+      font-family: 'CooperHewitt';
+      src: url('https://cdn.jsdelivr.net/gh/cooperhewitt/collection-fonts@master/fonts/CooperHewitt-Heavy.woff2') format('woff2'),
+           url('https://cdn.jsdelivr.net/gh/cooperhewitt/collection-fonts@master/fonts/CooperHewitt-Heavy.woff') format('woff');
+      font-weight: 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'CooperHewitt';
+      src: url('https://cdn.jsdelivr.net/gh/cooperhewitt/collection-fonts@master/fonts/CooperHewitt-Book.woff2') format('woff2'),
+           url('https://cdn.jsdelivr.net/gh/cooperhewitt/collection-fonts@master/fonts/CooperHewitt-Book.woff') format('woff');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --border: rgba(255,255,255,0.07);
+      --text: #e8e4dc;
+      --muted: rgba(232,228,220,0.45);
+      --accent: #c8a96e;
+      --radius-sm: 14px;
+      --radius-lg: 22px;
+      --play-size: 64px;
+      --font: 'CooperHewitt', 'Futura', 'Century Gothic', sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-synthesis: none;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Subtle grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.35;
+    }
+
+    /* NAV */
+    nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-name {
+      font-family: var(--font);
+      font-weight: 900;
+      font-size: 1.1rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.1s;
+    }
+
+    .nav-contact {
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 0.25s, border-color 0.25s;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .nav-contact:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* MAIN */
+    main {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+      padding: 48px 48px 36px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      grid-template-rows: auto auto;
+      gap: 20px;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* REEL CARDS */
+    .reel-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .reel-card:nth-child(1) { animation: fadeUp 0.7s ease forwards 0.3s; }
+    .reel-card:nth-child(2) { animation: fadeUp 0.7s ease forwards 0.45s; }
+    .reel-card:nth-child(3) { animation: fadeUp 0.7s ease forwards 0.6s; }
+    .reel-card:nth-child(4) { animation: fadeUp 0.7s ease forwards 0.75s; }
+
+    /* Card 1: AI Director — tall-ish, narrow */
+    .reel-card--ai {
+      grid-column: 1;
+      grid-row: 1;
+      aspect-ratio: 4/5;
+    }
+
+    /* Card 2: Directing — wide, taller */
+    .reel-card--directing {
+      grid-column: 2;
+      grid-row: 1;
+      aspect-ratio: 16/10;
+    }
+
+    /* Card 3: Gaming — slightly wider than col 1 */
+    .reel-card--gaming {
+      grid-column: 1;
+      grid-row: 2;
+      aspect-ratio: 4/3;
+    }
+
+    /* Card 4: Advertising — fills rest of row 2 */
+    .reel-card--advertising {
+      grid-column: 2;
+      grid-row: 2;
+      aspect-ratio: 16/9;
+    }
+
+    /* GIF placeholder */
+    .card-media {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease;
+    }
+
+    /* Placeholder when no GIF yet */
+    .card-placeholder {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #161616 0%, #1a1a1a 50%, #131313 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .placeholder-text {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.1);
+    }
+
+    /* Overlay on hover */
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      transition: background 0.35s ease;
+    }
+
+    .reel-card:hover .card-overlay {
+      background: rgba(0,0,0,0.55);
+    }
+
+    .reel-card:hover .card-media {
+      transform: scale(1.035);
+    }
+
+    /* Play button */
+    .play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      width: var(--play-size);
+      height: var(--play-size);
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(6px);
+      background: rgba(255,255,255,0.08);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.25s, background 0.25s;
+    }
+
+    .play-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: rgba(255,255,255,0.9);
+      margin-left: 3px;
+      transition: fill 0.25s;
+    }
+
+    .reel-card:hover .play-btn {
+      transform: translate(-50%, -50%) scale(1.12);
+      border-color: var(--accent);
+      background: rgba(200,169,110,0.15);
+    }
+
+    .reel-card:hover .play-btn svg {
+      fill: var(--accent);
+    }
+
+    /* Card label */
+    .card-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 22px 18px;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+    }
+
+    .card-label span {
+      display: block;
+      font-family: var(--font);
+      font-weight: 900;
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      z-index: 10;
+      padding: 20px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: center;
+    }
+
+    .footer-imdb {
+      font-size: 0.65rem;
+      font-weight: 900;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.25s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-imdb:hover {
+      color: var(--accent);
+    }
+
+    .footer-imdb::before {
+      content: '';
+      display: inline-block;
+      width: 18px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.5;
+    }
+
+    .footer-imdb::after {
+      content: '';
+      display: inline-block;
+      width: 18px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.5;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        padding: 20px 24px;
+      }
+
+      main {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        padding: 24px 20px;
+        gap: 16px;
+      }
+
+      .reel-card--ai,
+      .reel-card--directing,
+      .reel-card--gaming,
+      .reel-card--advertising {
+        grid-column: 1;
+        grid-row: auto;
+        aspect-ratio: 16/10;
+      }
+
+      footer {
+        padding: 20px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-name">Marcel Sarmiento</a>
+    <a href="mailto:contact@marcelsarmiento.com" class="nav-contact">Contact</a>
+  </nav>
+
+  <main>
+
+    <!-- Card 1: AI Director -->
+    <a href="#" class="reel-card reel-card--ai" aria-label="Play AI Director">
+      <!-- Replace src below with your GIF path, e.g. src="gifs/ai-videos.gif" -->
+      <!-- <img class="card-media" src="gifs/ai-videos.gif" alt="AI Videos reel" /> -->
+      <div class="card-placeholder">
+        <span class="placeholder-text">gif</span>
+      </div>
+      <div class="card-overlay"></div>
+      <div class="play-btn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </div>
+      <div class="card-label">
+        <span>AI Director</span>
+      </div>
+    </a>
+
+    <!-- Card 2: Feature Film Directing Reel -->
+    <a href="#" class="reel-card reel-card--directing" aria-label="Play Feature Film Directing Reel">
+      <!-- <img class="card-media" src="gifs/directing.gif" alt="Directing reel" /> -->
+      <div class="card-placeholder">
+        <span class="placeholder-text">gif</span>
+      </div>
+      <div class="card-overlay"></div>
+      <div class="play-btn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </div>
+      <div class="card-label">
+        <span>Feature Film Directing Reel</span>
+      </div>
+    </a>
+
+    <!-- Card 3: Game Direction -->
+    <a href="#" class="reel-card reel-card--gaming" aria-label="Play Game Direction">
+      <!-- <img class="card-media" src="gifs/gaming.gif" alt="Gaming reel" /> -->
+      <div class="card-placeholder">
+        <span class="placeholder-text">gif</span>
+      </div>
+      <div class="card-overlay"></div>
+      <div class="play-btn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </div>
+      <div class="card-label">
+        <span>Game Direction</span>
+      </div>
+    </a>
+
+    <!-- Card 4: Advertising Reel -->
+    <a href="#" class="reel-card reel-card--advertising" aria-label="Play Advertising Reel">
+      <!-- <img class="card-media" src="gifs/advertising.gif" alt="Advertising reel" /> -->
+      <div class="card-placeholder">
+        <span class="placeholder-text">gif</span>
+      </div>
+      <div class="card-overlay"></div>
+      <div class="play-btn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </div>
+      <div class="card-label">
+        <span>Advertising Reel</span>
+      </div>
+    </a>
+
+  </main>
+
+  <footer>
+    <a href="https://www.imdb.com/name/YOUR_IMDB_ID/" target="_blank" rel="noopener noreferrer" class="footer-imdb">
+      IMDb
+    </a>
+  </footer>
+
+</body>
+</html>
