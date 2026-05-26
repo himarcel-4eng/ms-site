@@ -119,7 +119,7 @@
       z-index: 1;
       padding: 24px 40px 20px;
       display: grid;
-      grid-template-columns: 1fr 2fr;
+      grid-template-columns: 1fr 1fr 1fr;
       grid-template-rows: 38vh 28vh;
       gap: 14px;
       max-width: 1280px;
@@ -148,9 +148,9 @@
     .reel-card:nth-child(4) { animation: fadeUp 0.7s ease forwards 0.75s; }
 
     .reel-card--ai         { grid-column: 1; grid-row: 1; }
-    .reel-card--directing  { grid-column: 2; grid-row: 1; }
-    .reel-card--gaming     { grid-column: 2; grid-row: 2; }
-    .reel-card--advertising{ grid-column: 1; grid-row: 2; }
+    .reel-card--directing  { grid-column: 2 / 4; grid-row: 1; }
+    .reel-card--gaming     { grid-column: 3; grid-row: 2; }
+    .reel-card--advertising{ grid-column: 1 / 3; grid-row: 2; }
 
     .card-media {
       position: absolute;
