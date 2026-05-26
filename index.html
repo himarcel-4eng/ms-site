@@ -2,9 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Marcel Sarmiento</title>
   <style>
@@ -24,8 +21,7 @@
       font-style: normal;
       font-display: swap;
     }
-  </style>
-  <style>
+
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -39,15 +35,12 @@
       --text: #e8e4dc;
       --muted: rgba(232,228,220,0.45);
       --accent: #c8a96e;
-      --radius-sm: 14px;
       --radius-lg: 22px;
       --play-size: 64px;
       --font: 'CooperHewitt', 'Futura', 'Century Gothic', sans-serif;
     }
 
-    html, body {
-      height: 100%;
-    }
+    html, body { height: 100%; }
 
     body {
       background-color: var(--bg);
@@ -61,7 +54,6 @@
       overflow-x: hidden;
     }
 
-    /* Subtle grain overlay */
     body::before {
       content: '';
       position: fixed;
@@ -96,6 +88,7 @@
     }
 
     .nav-contact {
+      font-family: var(--font);
       font-size: 0.7rem;
       font-weight: 900;
       letter-spacing: 0.22em;
@@ -113,7 +106,7 @@
       border-color: var(--accent);
     }
 
-    /* MAIN */
+    /* MAIN GRID */
     main {
       flex: 1;
       position: relative;
@@ -129,7 +122,7 @@
       margin: 0 auto;
     }
 
-    /* REEL CARDS */
+    /* CARDS */
     .reel-card {
       position: relative;
       border-radius: var(--radius-lg);
@@ -137,7 +130,6 @@
       border: 1px solid var(--border);
       background: var(--surface);
       cursor: pointer;
-      text-decoration: none;
       display: block;
       opacity: 0;
       transform: translateY(20px);
@@ -148,35 +140,11 @@
     .reel-card:nth-child(3) { animation: fadeUp 0.7s ease forwards 0.6s; }
     .reel-card:nth-child(4) { animation: fadeUp 0.7s ease forwards 0.75s; }
 
-    /* Card 1: AI Director — tall-ish, narrow */
-    .reel-card--ai {
-      grid-column: 1;
-      grid-row: 1;
-      aspect-ratio: 4/5;
-    }
+    .reel-card--ai         { grid-column: 1; grid-row: 1; aspect-ratio: 4/5; }
+    .reel-card--directing  { grid-column: 2; grid-row: 1; aspect-ratio: 16/10; }
+    .reel-card--gaming     { grid-column: 1; grid-row: 2; aspect-ratio: 16/9; }
+    .reel-card--advertising{ grid-column: 2; grid-row: 2; aspect-ratio: 16/9; }
 
-    /* Card 2: Directing — wide, taller */
-    .reel-card--directing {
-      grid-column: 2;
-      grid-row: 1;
-      aspect-ratio: 16/10;
-    }
-
-    /* Card 3: Game Direction */
-    .reel-card--gaming {
-      grid-column: 1;
-      grid-row: 2;
-      aspect-ratio: 16/9;
-    }
-
-    /* Card 4: Advertising — fills rest of row 2 */
-    .reel-card--advertising {
-      grid-column: 2;
-      grid-row: 2;
-      aspect-ratio: 16/9;
-    }
-
-    /* GIF placeholder */
     .card-media {
       position: absolute;
       inset: 0;
@@ -184,10 +152,9 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
-    /* Placeholder when no GIF yet */
     .card-placeholder {
       position: absolute;
       inset: 0;
@@ -204,7 +171,6 @@
       color: rgba(255,255,255,0.1);
     }
 
-    /* Overlay on hover */
     .card-overlay {
       position: absolute;
       inset: 0;
@@ -212,15 +178,9 @@
       transition: background 0.35s ease;
     }
 
-    .reel-card:hover .card-overlay {
-      background: rgba(0,0,0,0.55);
-    }
+    .reel-card:hover .card-overlay { background: rgba(0,0,0,0.55); }
+    .reel-card:hover .card-media   { transform: scale(1.035); }
 
-    .reel-card:hover .card-media {
-      transform: scale(1.035);
-    }
-
-    /* Play button */
     .play-btn {
       position: absolute;
       top: 50%;
@@ -236,6 +196,7 @@
       backdrop-filter: blur(6px);
       background: rgba(255,255,255,0.08);
       transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.25s, background 0.25s;
+      pointer-events: none;
     }
 
     .play-btn svg {
@@ -252,11 +213,8 @@
       background: rgba(200,169,110,0.15);
     }
 
-    .reel-card:hover .play-btn svg {
-      fill: var(--accent);
-    }
+    .reel-card:hover .play-btn svg { fill: var(--accent); }
 
-    /* Card label */
     .card-label {
       position: absolute;
       bottom: 0;
@@ -264,6 +222,7 @@
       right: 0;
       padding: 20px 22px 18px;
       background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+      pointer-events: none;
     }
 
     .card-label span {
@@ -287,6 +246,7 @@
     }
 
     .footer-imdb {
+      font-family: var(--font);
       font-size: 0.65rem;
       font-weight: 900;
       letter-spacing: 0.22em;
@@ -296,22 +256,12 @@
       transition: color 0.25s;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
-    .footer-imdb:hover {
-      color: var(--accent);
-    }
+    .footer-imdb:hover { color: var(--accent); }
 
-    .footer-imdb::before {
-      content: '';
-      display: inline-block;
-      width: 18px;
-      height: 1px;
-      background: currentColor;
-      opacity: 0.5;
-    }
-
+    .footer-imdb::before,
     .footer-imdb::after {
       content: '';
       display: inline-block;
@@ -321,27 +271,97 @@
       opacity: 0.5;
     }
 
-    /* Animations */
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* MODAL LIGHTBOX */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.92);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      cursor: pointer;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      nav {
-        padding: 20px 24px;
-      }
+    .modal-backdrop.is-open {
+      display: flex;
+      animation: fadeIn 0.25s ease;
+    }
 
+    .modal-inner {
+      position: relative;
+      width: 100%;
+      max-width: 1080px;
+      cursor: default;
+      animation: scaleIn 0.3s cubic-bezier(0.34, 1.3, 0.64, 1);
+    }
+
+    .modal-ratio {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 */
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+    }
+
+    .modal-ratio iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: -44px;
+      right: 0;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.6);
+      font-family: var(--font);
+      font-size: 0.65rem;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+      padding: 0;
+    }
+
+    .modal-close:hover { color: var(--accent); }
+
+    .modal-close svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+    @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav  { padding: 20px 24px; }
       main {
         grid-template-columns: 1fr;
         grid-template-rows: auto;
         padding: 24px 20px;
         gap: 16px;
       }
-
       .reel-card--ai,
       .reel-card--directing,
       .reel-card--gaming,
@@ -350,10 +370,8 @@
         grid-row: auto;
         aspect-ratio: 16/10;
       }
-
-      footer {
-        padding: 20px 24px;
-      }
+      footer { padding: 20px 24px; }
+      .modal-backdrop { padding: 16px; }
     }
   </style>
 </head>
@@ -367,73 +385,48 @@
   <main>
 
     <!-- Card 1: AI Director -->
-    <a href="https://vimeo.com/1195692745" target="_blank" rel="noopener noreferrer" class="reel-card reel-card--ai" aria-label="Play AI Director">
-      <!-- Replace src below with your GIF path, e.g. src="gifs/ai-videos.gif" -->
-      <!-- <img class="card-media" src="gifs/ai-videos.gif" alt="AI Videos reel" /> -->
-      <div class="card-placeholder">
-        <span class="placeholder-text">gif</span>
-      </div>
+    <div class="reel-card reel-card--ai" data-vimeo="1195692745" role="button" tabindex="0" aria-label="Play AI Director">
+      <!-- <img class="card-media" src="gifs/ai-director.gif" alt="AI Director" /> -->
+      <div class="card-placeholder"><span class="placeholder-text">gif</span></div>
       <div class="card-overlay"></div>
       <div class="play-btn">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 5v14l11-7z"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
       </div>
-      <div class="card-label">
-        <span>AI Director</span>
-      </div>
-    </a>
+      <div class="card-label"><span>AI Director</span></div>
+    </div>
 
     <!-- Card 2: Feature Film Directing Reel -->
-    <a href="https://vimeo.com/805736276" target="_blank" rel="noopener noreferrer" class="reel-card reel-card--directing" aria-label="Play Feature Film Directing Reel">
-      <!-- <img class="card-media" src="gifs/directing.gif" alt="Directing reel" /> -->
-      <div class="card-placeholder">
-        <span class="placeholder-text">gif</span>
-      </div>
+    <div class="reel-card reel-card--directing" data-vimeo="805736276" role="button" tabindex="0" aria-label="Play Feature Film Directing Reel">
+      <!-- <img class="card-media" src="gifs/directing.gif" alt="Feature Film Directing Reel" /> -->
+      <div class="card-placeholder"><span class="placeholder-text">gif</span></div>
       <div class="card-overlay"></div>
       <div class="play-btn">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 5v14l11-7z"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
       </div>
-      <div class="card-label">
-        <span>Feature Film Directing Reel</span>
-      </div>
-    </a>
+      <div class="card-label"><span>Feature Film Directing Reel</span></div>
+    </div>
 
     <!-- Card 3: Game Direction -->
-    <a href="https://vimeo.com/1069767031" target="_blank" rel="noopener noreferrer" class="reel-card reel-card--gaming" aria-label="Play Game Direction">
-      <!-- <img class="card-media" src="gifs/gaming.gif" alt="Gaming reel" /> -->
-      <div class="card-placeholder">
-        <span class="placeholder-text">gif</span>
-      </div>
+    <div class="reel-card reel-card--gaming" data-vimeo="1069767031" role="button" tabindex="0" aria-label="Play Game Direction">
+      <!-- <img class="card-media" src="gifs/gaming.gif" alt="Game Direction" /> -->
+      <div class="card-placeholder"><span class="placeholder-text">gif</span></div>
       <div class="card-overlay"></div>
       <div class="play-btn">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 5v14l11-7z"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
       </div>
-      <div class="card-label">
-        <span>Game Direction</span>
-      </div>
-    </a>
+      <div class="card-label"><span>Game Direction</span></div>
+    </div>
 
     <!-- Card 4: Advertising Reel -->
-    <a href="https://vimeo.com/80313550" target="_blank" rel="noopener noreferrer" class="reel-card reel-card--advertising" aria-label="Play Advertising Reel">
-      <!-- <img class="card-media" src="gifs/advertising.gif" alt="Advertising reel" /> -->
-      <div class="card-placeholder">
-        <span class="placeholder-text">gif</span>
-      </div>
+    <div class="reel-card reel-card--advertising" data-vimeo="80313550" role="button" tabindex="0" aria-label="Play Advertising Reel">
+      <!-- <img class="card-media" src="gifs/advertising.gif" alt="Advertising Reel" /> -->
+      <div class="card-placeholder"><span class="placeholder-text">gif</span></div>
       <div class="card-overlay"></div>
       <div class="play-btn">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 5v14l11-7z"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
       </div>
-      <div class="card-label">
-        <span>Advertising Reel</span>
-      </div>
-    </a>
+      <div class="card-label"><span>Advertising Reel</span></div>
+    </div>
 
   </main>
 
@@ -442,6 +435,64 @@
       IMDb
     </a>
   </footer>
+
+  <!-- MODAL -->
+  <div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-label="Video player">
+    <div class="modal-inner" id="modalInner">
+      <button class="modal-close" id="modalClose" aria-label="Close video">
+        <svg viewBox="0 0 14 14"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>
+        Close
+      </button>
+      <div class="modal-ratio">
+        <iframe id="modalFrame"
+          src=""
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+          title="Video player">
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const modal    = document.getElementById('modal');
+    const frame    = document.getElementById('modalFrame');
+    const closeBtn = document.getElementById('modalClose');
+    const inner    = document.getElementById('modalInner');
+
+    function openModal(vimeoId) {
+      frame.src = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&color=c8a96e&title=0&byline=0&portrait=0`;
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      frame.src = '';
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    // Open on card click
+    document.querySelectorAll('.reel-card[data-vimeo]').forEach(card => {
+      card.addEventListener('click', () => openModal(card.dataset.vimeo));
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') openModal(card.dataset.vimeo);
+      });
+    });
+
+    // Close on backdrop click (but not inner modal click)
+    modal.addEventListener('click', e => {
+      if (!inner.contains(e.target)) closeModal();
+    });
+
+    // Close button
+    closeBtn.addEventListener('click', closeModal);
+
+    // Close on Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
 
 </body>
 </html>
