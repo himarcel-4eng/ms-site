@@ -97,6 +97,12 @@
       text-decoration: none;
       border-bottom: 1px solid transparent;
       transition: color 0.25s, border-color 0.25s;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 32px;
       opacity: 0;
       animation: fadeUp 0.8s ease forwards 0.2s;
     }
@@ -143,8 +149,8 @@
 
     .reel-card--ai         { grid-column: 1; grid-row: 1; }
     .reel-card--directing  { grid-column: 2; grid-row: 1; }
-    .reel-card--gaming     { grid-column: 1; grid-row: 2; }
-    .reel-card--advertising{ grid-column: 2; grid-row: 2; }
+    .reel-card--gaming     { grid-column: 2; grid-row: 2; }
+    .reel-card--advertising{ grid-column: 1; grid-row: 2; }
 
     .card-media {
       position: absolute;
@@ -380,7 +386,10 @@
 
   <nav>
     <a href="/" class="nav-name">Marcel Sarmiento</a>
-    <a href="mailto:contact@marcelsarmiento.com" class="nav-contact">Contact</a>
+    <div class="nav-right">
+      <a href="https://www.imdb.com/name/nm1306443/?ref_=ext_shr_lnk" target="_blank" rel="noopener noreferrer" class="nav-contact">IMDb</a>
+      <a href="mailto:contact@marcelsarmiento.com" class="nav-contact">Contact</a>
+    </div>
   </nav>
 
   <main>
@@ -431,11 +440,7 @@
 
   </main>
 
-  <footer>
-    <a href="https://www.imdb.com/name/nm1306443/?ref_=ext_shr_lnk" target="_blank" rel="noopener noreferrer" class="footer-imdb">
-      IMDb
-    </a>
-  </footer>
+  <footer></footer>
 
   <!-- MODAL -->
   <div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-label="Video player">
